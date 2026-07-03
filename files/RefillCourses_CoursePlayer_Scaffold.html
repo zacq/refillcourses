@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RefillCourses — Course Player Scaffold</title>
+
+<!-- Fonts: Inter (body) + Syne (display) — NeuraFlow pairing -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+<!-- Tailwind Play CDN (v3) configured with the NeuraFlow palette.
+     NOTE: production target is Tailwind v4 @theme tokens per the implementation plan;
+     this CDN build is only to make the scaffold runnable with no build step. -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+          display: ['Syne', 'sans-serif'],
+        },
+        colors: {
+          brand: {
+            bg: '#030308',
+            primary: '#8b5cf6',   // violet
+            secondary: '#06b6d4', // cyan
+            accent: '#f0abfc',    // pink
+          },
+          surface: '#0d0d1f',
+          'surface-2': '#12122b',
+          progress: '#34d399',     // emerald — completion
+          'in-progress': '#fbbf24',// amber — current
+          locked: '#3f3f5a',       // muted — todo
+        },
+        keyframes: {
+          float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+          'pulse-soft': { '0%,100%': { opacity: '.12', transform: 'scale(1)' }, '50%': { opacity: '.22', transform: 'scale(1.05)' } },
+        },
+        animation: {
+          float: 'float 6s ease-in-out infinite',
+          'pulse-soft': 'pulse-soft 8s ease-in-out infinite',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html, body { background:#030308; }
+  body { font-family:'Inter', system-ui; letter-spacing:-0.01em; }
+  h1,h2,h3,h4 { font-family:'Syne', sans-serif; letter-spacing:-0.02em; }
+  ::selection { background: rgba(139,92,246,.3); color:#fff; }
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-thumb { background:rgba(255,255,255,.08); border-radius:8px; }
+  ::-webkit-scrollbar-thumb:hover { background:rgba(255,255,255,.16); }
+  .prose-lesson { color:rgba(255,255,255,.85); line-height:1.75; font-size:15.5px; }
+  .prose-lesson p { margin-bottom:1rem; }
+  .prose-lesson ul { list-style:disc; padding-left:1.5rem; margin-bottom:1rem; }
+  .prose-lesson li { margin-bottom:.25rem; }
+</style>
+
+<!-- React 18 UMD + Babel standalone (scaffold runs with zero build).
+     Production target is React 19 + Vite + TS per the plan. -->
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useMemo, useRef, useEffect } = React;
+
+/* ──────────────────────────────────────────────────────────────────────────
+   SEED DATA — mirrors the sample LMS structure (Blocks → Modules/Tasks),
+   re-branded for RefillCourses. Lesson types: text | download | quiz.
+   ────────────────────────────────────────────────────────────────────────── */
+const COURSE = {
+  id: "digital-business",
+  title: "Building a Digital Business",
+  category: "Digital Skills",
+  blocks: [
+    { id: "b0", title: "Access to Resources", lessons: [
+      { id: "l01", title: "Flyer", type: "download",
+        files: [{ name: "RefillCourses_Welcome_Flyer.pdf", sizeLabel: "1.2 MB", ext: "pdf" }] },
+      { id: "l02", title: "Instructions to set up your account", type: "download",
+        files: [{ name: "Account_Setup_Guide.pdf", sizeLabel: "640 KB", ext: "pdf" }] },
+    ]},
+    { id: "b1", title: "Introduction", lessons: [
+      { id: "l11", title: "Choose your Training Modality", type: "text",
+        body: "<p>RefillCourses is fully self-paced. Move through each block in order, mark lessons complete as you go, and your progress saves automatically.</p><p>You can choose to learn primarily through:</p><ul><li><b>Reading</b> — written modules with worked examples.</li><li><b>Watching</b> — short video walkthroughs for each module.</li><li><b>Doing</b> — hands-on tasks that apply what you learned to your own business.</li></ul>" },
+      { id: "l12", title: "Discussion Forum", type: "text",
+        body: "<p>Every block has a discussion thread. Post a question, share what you built, and see how other learners approached the same task.</p>" },
+    ]},
+    { id: "b2", title: "Block 1: Welcome to Digital Business", lessons: [
+      { id: "l21", title: "Module 1: Why Digitalize?", type: "text",
+        body: "<p>Digitalizing your business means meeting customers where they already are: online. In this module you'll see how a small shop can reach more buyers, take orders after hours, and get paid without handling cash.</p><p>By the end you'll be able to name three concrete things a digital presence does for your business that a physical-only setup cannot.</p>" },
+      { id: "l22", title: "Task 1: Where are you in your digital journey?", type: "text",
+        body: "<p>Take five minutes to write down where your business is today: Do you have a phone number customers can reach? A social page? A way to take online payment? This baseline is your starting point for the rest of the course.</p>" },
+    ]},
+    { id: "b3", title: "Block 2: Building an Online Presence", lessons: [
+      { id: "l31", title: "Module 2: Building an online presence", type: "text",
+        body: "<p>Your online presence is how customers find and trust you before they ever talk to you. We'll cover the three essentials: a findable profile, clear photos, and a single way to contact you.</p>" },
+      { id: "l32", title: "Module 2 (continued)", type: "text",
+        body: "<p>Consistency builds trust. Use the same business name, logo, and contact details everywhere so customers recognise you across channels.</p>" },
+      { id: "l33", title: "Task 2: Build your online presence", type: "text",
+        body: "<p>Create or clean up one profile this week — a Google Business listing, an Instagram page, or a WhatsApp Business profile. Add three photos and your hours.</p>" },
+    ]},
+    { id: "b4", title: "Block 3: Selling Online", lessons: [
+      { id: "l41", title: "Module 3: Selling online", type: "text",
+        body: "<p>Selling online is about removing friction: clear prices, easy ordering, and a payment method customers already use. This module walks through setting up a simple catalogue.</p>" },
+      { id: "l42", title: "Task 3: Create your e-commerce listing", type: "text",
+        body: "<p>List three products with a photo, price, and one-line description. Share the link with one customer and ask them to place a test order.</p>" },
+    ]},
+    { id: "b5", title: "Block 4: Adapting Other Business Processes", lessons: [
+      { id: "l51", title: "Module 4: Adapting other business processes", type: "text",
+        body: "<p>Beyond sales, digital tools can handle bookkeeping, inventory, and customer follow-up. Pick the one that wastes the most of your time today and digitalize that first.</p>" },
+      { id: "l52", title: "Task 4: Adapt one business process", type: "text",
+        body: "<p>Choose one manual process and move it to a simple digital tool — a spreadsheet for stock, or a notes app for customer orders. Note how much time it saves over a week.</p>" },
+    ]},
+    { id: "b6", title: "Block 5: What's Next", lessons: [
+      { id: "l61", title: "Module 5: What's next", type: "text",
+        body: "<p>You've built a presence, started selling, and digitalized a process. The last step is a plan to keep going after the course ends.</p>" },
+      { id: "l62", title: "Task 5: Action Plan", type: "text",
+        body: "<p>Write three things you'll do in the next 30 days to keep your digital business growing. Be specific and give each a date.</p>" },
+    ]},
+    { id: "cert", title: "Certificate", lessons: [
+      { id: "eval", title: "Course Evaluation", type: "quiz",
+        survey: {
+          questions: [
+            { id: "q1", type: "rating-matrix", required: true,
+              prompt: "How useful do you think were the following parts of the RefillCourses training program? Please rate them on a scale from 1 = not useful to 5 = very useful.",
+              scaleHint: "Rate each part 1–5",
+              rows: [
+                { id: "r1", label: "How useful were the training modules on the platform?" },
+                { id: "r2", label: "How useful was the support from your trainer?" },
+                { id: "r3", label: "How useful was the training and coaching overall?" },
+              ]},
+            { id: "q2", type: "single-scale", required: true, max: 5,
+              prompt: "Will you use the knowledge and skills acquired in the training? Please rate the likelihood on a scale from 1 = very unlikely to 5 = very likely.",
+              rowLabel: "How likely is it that you will use the knowledge and skills acquired in the training?" },
+            { id: "q3", type: "free-text", required: true,
+              prompt: "What do you suggest we do to further improve the RefillCourses programme?" },
+          ],
+        }},
+    ]},
+  ],
+};
+
+// Flatten lessons in display order, and wire prev/next ids.
+const FLAT = COURSE.blocks.flatMap(b => b.lessons.map(l => ({ ...l, blockId: b.id, blockTitle: b.title })));
+FLAT.forEach((l, i) => { l.prevId = FLAT[i-1]?.id; l.nextId = FLAT[i+1]?.id; });
+const byId = id => FLAT.find(l => l.id === id);
+
+/* ── Icons (inline lucide-style strokes) ──────────────────────────────────── */
+const Icon = ({ d, size = 18, className = "", fill = "none", sw = 2 }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill={fill} stroke="currentColor"
+       strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    {Array.isArray(d) ? d.map((p,i)=><path key={i} d={p}/>) : <path d={d}/>}
+  </svg>
+);
+const Chevron   = p => <Icon d="M18 15l-6-6-6 6" {...p} />;
+const Bell      = p => <Icon d={["M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9","M10.3 21a1.94 1.94 0 0 0 3.4 0"]} {...p} />;
+const Chat      = p => <Icon d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" {...p} />;
+const File      = p => <Icon d={["M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z","M14 2v6h6"]} {...p} />;
+const Printer   = p => <Icon d={["M6 9V2h12v7","M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2","M6 14h12v8H6z"]} {...p} />;
+const ArrowLeft = p => <Icon d="M19 12H5m7 7-7-7 7-7" {...p} />;
+const ArrowRight= p => <Icon d="M5 12h14m-7-7 7 7-7 7" {...p} />;
+const Panel     = p => <Icon d={["M3 3h18v18H3z","M9 3v18"]} {...p} />;
+const Check     = p => <Icon d="M20 6 9 17l-5-5" {...p} />;
+
+/* ── Progress primitives ──────────────────────────────────────────────────── */
+const DOT = { done:"bg-progress", current:"bg-in-progress animate-pulse", todo:"bg-locked" };
+const ProgressDot = ({ state }) => <span className={`w-2 h-2 rounded-full shrink-0 ${DOT[state]}`} />;
+
+const ProgressBar = ({ value }) => (
+  <div className="h-1.5 w-full rounded-full bg-white/8 overflow-hidden">
+    <div className="h-full rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary transition-all duration-500"
+         style={{ width: `${value}%` }} />
+  </div>
+);
+
+const ProgressRing = ({ percent, size = 44 }) => {
+  const r = (size-6)/2, c = 2*Math.PI*r;
+  return (
+    <svg width={size} height={size} className="-rotate-90">
+      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="rgba(255,255,255,.1)" strokeWidth="4" />
+      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="url(#gr)" strokeWidth="4"
+              strokelinecap="round" strokeDasharray={c} strokeDashoffset={c-(percent/100)*c}
+              style={{ transition:"stroke-dashoffset .6s" }} />
+      <defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stopColor="#8b5cf6"/><stop offset="1" stopColor="#06b6d4"/>
+      </linearGradient></defs>
+    </svg>
+  );
+};
+
+/* ── Top navbar (scroll-aware glass, ported from NeuraFlow) ───────────────── */
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll); return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  const links = ["Home","Dashboard","News","About","Programmes"];
+  const [active] = useState("Programmes");
+  return (
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+      scrolled ? "bg-brand-bg/85 backdrop-blur-2xl border-b border-white/5 shadow-2xl py-2"
+               : "bg-brand-bg/50 backdrop-blur-md py-3"}`}>
+      <nav className="max-w-7xl mx-auto px-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-primary to-brand-secondary
+                          grid place-items-center font-display font-extrabold text-white text-sm">R</div>
+          <span className="font-display font-bold text-white text-lg tracking-tight">RefillCourses</span>
+        </div>
+        <ul className="hidden md:flex items-center gap-7 text-sm">
+          {links.map(l => (
+            <li key={l}>
+              <a href="#" className={`relative transition-colors ${active===l ? "text-white" : "text-white/60 hover:text-white"}`}>
+                {l}
+                {active===l && <span className="absolute -bottom-1.5 left-0 right-0 h-0.5 rounded-full bg-brand-primary" />}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="flex items-center gap-2">
+          <button className="relative w-9 h-9 grid place-items-center rounded-lg text-white/70 hover:text-brand-secondary hover:bg-white/5 transition-colors">
+            <Bell size={18}/><span className="absolute top-1.5 right-2 w-2 h-2 rounded-full bg-brand-accent" />
+          </button>
+          <button className="w-9 h-9 grid place-items-center rounded-lg text-white/70 hover:text-brand-secondary hover:bg-white/5 transition-colors">
+            <Chat size={18}/>
+          </button>
+          <span className="w-px h-6 bg-white/10 mx-1" />
+          <button className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-primary to-brand-secondary
+                             grid place-items-center text-white text-xs font-bold ring-2 ring-white/10">CK</button>
+        </div>
+      </nav>
+    </header>
+  );
+}
+
+/* ── Course Menu (accordion: Blocks → Lessons + progress dots) ────────────── */
+function CourseMenu({ done, currentId, onSelect, percent }) {
+  const [open, setOpen] = useState(() => new Set(COURSE.blocks.map(b => b.id)));
+  const toggle = id => setOpen(s => { const n = new Set(s); n.has(id)?n.delete(id):n.add(id); return n; });
+  return (
+    <nav className="p-4 space-y-3 overflow-y-auto h-[calc(100vh-4rem)]">
+      <div className="px-1 pb-1">
+        <h2 className="font-display text-lg text-white">Course Menu</h2>
+        <p className="text-white/45 text-xs mt-0.5">{percent}% complete</p>
+        <div className="mt-2"><ProgressBar value={percent} /></div>
+      </div>
+      {COURSE.blocks.map(block => {
+        const isOpen = open.has(block.id);
+        return (
+          <div key={block.id} className="rounded-xl border border-white/8 bg-surface-2/50 overflow-hidden">
+            <button onClick={() => toggle(block.id)}
+              className="w-full flex items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-white/90 hover:bg-white/[0.03] transition-colors">
+              <span className="truncate text-left">{block.title}</span>
+              <Chevron size={16} className={`shrink-0 transition-transform ${isOpen ? "" : "rotate-180"}`} />
+            </button>
+            {isOpen && (
+              <ul className="pb-2">
+                {block.lessons.map(lesson => {
+                  const state = done.has(lesson.id) ? "done" : lesson.id === currentId ? "current" : "todo";
+                  const isActive = lesson.id === currentId;
+                  return (
+                    <li key={lesson.id}>
+                      <button onClick={() => onSelect(lesson.id)}
+                        className={`w-full flex items-center gap-2.5 px-4 py-2 text-sm text-left transition-colors border-l-2 ${
+                          isActive ? "text-white bg-brand-primary/10 border-brand-primary"
+                                    : "text-white/60 hover:text-white/90 border-transparent"}`}>
+                        <ProgressDot state={state} />
+                        <span className="truncate">{lesson.title}</span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        );
+      })}
+    </nav>
+  );
+}
+
+/* ── Lesson views ─────────────────────────────────────────────────────────── */
+const TextLesson = ({ lesson }) =>
+  <div className="prose-lesson" dangerouslySetInnerHTML={{ __html: lesson.body }} />;
+
+const DownloadLesson = ({ lesson }) => (
+  <div className="space-y-3">
+    {lesson.files.map(f => (
+      <div key={f.name} className="p-5 rounded-2xl border border-brand-secondary/25 bg-gradient-to-b from-cyan-900/15 to-[#0a0a1f]
+                                   flex items-center gap-4">
+        <div className="w-11 h-11 rounded-xl bg-brand-secondary/15 grid place-items-center text-brand-secondary shrink-0"><File/></div>
+        <div className="flex-1 min-w-0">
+          <p className="text-white font-medium truncate">{f.name}</p>
+          <p className="text-white/45 text-xs mt-0.5">{f.sizeLabel} · {f.ext.toUpperCase()}</p>
+        </div>
+        <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm text-white transition-colors">Download</button>
+      </div>
+    ))}
+  </div>
+);
+
+/* ── Evaluation engine ────────────────────────────────────────────────────── */
+function RatingMatrix({ q, value, onChange }) {
+  const scale = [1,2,3,4,5];
+  return (
+    <div className="overflow-x-auto rounded-xl border border-white/8">
+      <table className="w-full text-sm min-w-[460px]">
+        <thead>
+          <tr className="bg-white/[0.03] text-white/45">
+            <th className="text-left px-4 py-2.5 font-normal">{q.scaleHint}</th>
+            {scale.map(n => <th key={n} className="px-3 py-2.5 font-medium w-12">{n}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {q.rows.map(row => (
+            <tr key={row.id} className="border-t border-white/5">
+              <td className="px-4 py-3 text-white/75">{row.label}</td>
+              {scale.map(n => (
+                <td key={n} className="text-center">
+                  <button onClick={() => onChange({ ...value, [row.id]: n })} aria-label={`${row.label}: ${n}`}
+                    className={`w-5 h-5 rounded-full border-2 transition-all ${
+                      value?.[row.id] === n
+                        ? "border-brand-primary bg-brand-primary shadow-[0_0_10px_rgba(139,92,246,.6)]"
+                        : "border-white/25 hover:border-brand-primary/60"}`} />
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function SingleScale({ q, value, onChange }) {
+  const scale = [1,2,3,4,5];
+  return (
+    <div>
+      <p className="text-white/70 text-sm mb-3">{q.rowLabel}</p>
+      <div className="flex gap-3">
+        {scale.map(n => (
+          <button key={n} onClick={() => onChange(n)}
+            className={`flex-1 py-3 rounded-xl border-2 font-display font-bold transition-all ${
+              value === n ? "border-brand-primary bg-brand-primary/15 text-white shadow-[0_0_14px_rgba(139,92,246,.35)]"
+                          : "border-white/12 text-white/55 hover:border-brand-primary/50"}`}>{n}</button>
+        ))}
+      </div>
+      <div className="flex justify-between text-[11px] text-white/35 mt-1.5 px-1">
+        <span>Very unlikely</span><span>Very likely</span>
+      </div>
+    </div>
+  );
+}
+
+const FreeText = ({ value, onChange }) => (
+  <textarea value={value || ""} onChange={e => onChange(e.target.value)} rows={4}
+    placeholder="Type your answer..."
+    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30
+               focus:outline-none focus:ring-1 focus:ring-brand-primary/50 resize-none" />
+);
+
+function Evaluation({ lesson, onComplete }) {
+  const [answers, setAnswers] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const set = (id, v) => setAnswers(a => ({ ...a, [id]: v }));
+  const survey = lesson.survey;
+
+  if (submitted) {
+    return (
+      <div className="text-center py-12">
+        <div className="w-16 h-16 mx-auto rounded-full bg-progress/15 text-progress grid place-items-center mb-4"><Check size={30}/></div>
+        <h2 className="font-display text-2xl text-white">Evaluation submitted</h2>
+        <p className="text-white/55 mt-2 max-w-md mx-auto">Thank you. Your course is now complete and your certificate has been unlocked.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h2 className="font-display text-2xl text-white mb-1">Course Evaluation</h2>
+      <p className="text-white/40 text-sm mb-8 flex items-center gap-2"><Printer size={14}/> Respondent: <em>Anonymous</em></p>
+
+      {survey.questions.map((q, i) => (
+        <section key={q.id} className="mb-8">
+          <div className="flex gap-3">
+            <span className="w-8 h-8 rounded-lg bg-brand-accent/15 text-brand-accent font-bold grid place-items-center shrink-0">
+              {i+1}{q.required && <sup className="text-red-400 -mt-1">*</sup>}
+            </span>
+            <div className="flex-1 rounded-xl bg-brand-secondary/[0.06] border border-brand-secondary/15 px-4 py-3">
+              <p className="text-white/90 text-[15px]">{q.prompt}</p>
+            </div>
+          </div>
+          <div className="mt-4 md:pl-11">
+            {q.type === "rating-matrix" && <RatingMatrix q={q} value={answers[q.id]} onChange={v => set(q.id, v)} />}
+            {q.type === "single-scale"  && <SingleScale  q={q} value={answers[q.id]} onChange={v => set(q.id, v)} />}
+            {q.type === "free-text"     && <FreeText           value={answers[q.id]} onChange={v => set(q.id, v)} />}
+          </div>
+        </section>
+      ))}
+
+      <button onClick={() => { setSubmitted(true); onComplete(lesson.id); }}
+        className="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold hover:opacity-90 transition-opacity">
+        Submit evaluation
+      </button>
+    </div>
+  );
+}
+
+function LessonRenderer({ lesson, done, onComplete, onNav }) {
+  const isDone = done.has(lesson.id);
+  return (
+    <article>
+      <p className="text-xs uppercase tracking-wider text-brand-accent/70 mb-1">{lesson.blockTitle}</p>
+      <h1 className="font-display text-3xl text-white mb-6">{lesson.title}</h1>
+
+      {lesson.type === "text"     && <TextLesson lesson={lesson} />}
+      {lesson.type === "download" && <DownloadLesson lesson={lesson} />}
+      {lesson.type === "quiz"     && <Evaluation lesson={lesson} onComplete={onComplete} />}
+
+      {lesson.type !== "quiz" && (
+        <div className="mt-10 flex items-center justify-between border-t border-white/8 pt-6">
+          <button onClick={() => lesson.prevId && onNav(lesson.prevId)} disabled={!lesson.prevId}
+            className="flex items-center gap-1.5 text-sm text-white/55 hover:text-white disabled:opacity-30 disabled:hover:text-white/55 transition-colors">
+            <ArrowLeft size={15}/> Previous
+          </button>
+          <button onClick={() => onComplete(lesson.id)}
+            className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+              isDone ? "bg-progress/15 text-progress border border-progress/30"
+                     : "bg-gradient-to-r from-brand-primary to-brand-secondary text-white hover:opacity-90"}`}>
+            {isDone ? "✓ Completed" : "Mark complete"}
+          </button>
+          <button onClick={() => lesson.nextId && onNav(lesson.nextId)} disabled={!lesson.nextId}
+            className="flex items-center gap-1.5 text-sm text-white/55 hover:text-white disabled:opacity-30 disabled:hover:text-white/55 transition-colors">
+            Next <ArrowRight size={15}/>
+          </button>
+        </div>
+      )}
+    </article>
+  );
+}
+
+/* ── App shell ────────────────────────────────────────────────────────────── */
+function App() {
+  const [done, setDone] = useState(() => new Set());
+  const [currentId, setCurrentId] = useState(FLAT[0].id);
+  const [menuOpen, setMenuOpen] = useState(true);
+  const current = byId(currentId);
+
+  const percent = useMemo(() => {
+    const total = FLAT.length;
+    return total ? Math.round((done.size / total) * 100) : 0;
+  }, [done]);
+
+  const select = id => { setCurrentId(id); window.scrollTo({ top: 0, behavior: "smooth" }); };
+
+  const markComplete = id => {
+    setDone(s => { const n = new Set(s); n.add(id); return n; }); // optimistic — dot flips now
+    const nxt = byId(id)?.nextId;
+    if (nxt) setTimeout(() => select(nxt), 250); // auto-advance, like a real player
+  };
+
+  return (
+    <div className="min-h-screen bg-brand-bg text-white/90">
+      {/* ambient glow orbs (NeuraFlow signature) */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute -top-32 -left-24 w-96 h-96 rounded-full bg-brand-primary/20 blur-3xl animate-pulse-soft" />
+        <div className="absolute top-1/3 -right-24 w-96 h-96 rounded-full bg-brand-secondary/15 blur-3xl animate-pulse-soft" />
+      </div>
+
+      <Navbar />
+
+      <div className="relative pt-16 min-h-screen">
+        <div className="flex">
+          <aside className={`transition-[width] duration-300 shrink-0 border-r border-white/5 bg-surface/60 backdrop-blur-xl
+                             ${menuOpen ? "w-[300px]" : "w-0 overflow-hidden"}`}>
+            <CourseMenu done={done} currentId={currentId} onSelect={select} percent={percent} />
+          </aside>
+
+          <main className="flex-1 min-w-0">
+            <div className="max-w-3xl mx-auto px-5 md:px-8 py-8">
+              <button onClick={() => setMenuOpen(v => !v)} title="Toggle course menu"
+                className="mb-5 text-white/45 hover:text-white transition-colors">
+                <Panel size={18}/>
+              </button>
+              <LessonRenderer lesson={current} done={done} onComplete={markComplete} onNav={select} />
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

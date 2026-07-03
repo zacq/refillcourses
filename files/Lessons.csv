@@ -1,0 +1,17 @@
+Title,Type,Order,Block,Body,Media URL,Survey JSON
+Flyer,download,1,Access to Resources,,,
+Instructions to set up your account,download,2,Access to Resources,,,
+Choose your Training Modality,text,1,Introduction,"RefillCourses is fully self-paced. Move through each block in order and your progress saves automatically.",,
+Discussion Forum,text,2,Introduction,"Every block has a discussion thread. Post a question and see how other learners approached the same task.",,
+Module 1: Why Digitalize?,text,1,Block 1: Welcome to Digital Business,"Digitalizing your business means meeting customers where they already are: online.",,
+Task 1: Where are you in your digital journey?,text,2,Block 1: Welcome to Digital Business,"Write down where your business is today. This baseline is your starting point.",,
+Module 2: Building an online presence,text,1,Block 2: Building an Online Presence,"Your online presence is how customers find and trust you before they ever talk to you.",,
+Module 2 (continued),text,2,Block 2: Building an Online Presence,"Consistency builds trust. Use the same name, logo, and contact details everywhere.",,
+Task 2: Build your online presence,text,3,Block 2: Building an Online Presence,"Create or clean up one profile this week. Add three photos and your hours.",,
+Module 3: Selling online,text,1,Block 3: Selling Online,"Selling online is about removing friction: clear prices, easy ordering, familiar payment.",,
+Task 3: Create your e-commerce listing,text,2,Block 3: Selling Online,"List three products with a photo, price, and one-line description.",,
+Module 4: Adapting other business processes,text,1,Block 4: Adapting Other Business Processes,"Digital tools can handle bookkeeping, inventory, and follow-up. Start with your biggest time-waster.",,
+Task 4: Adapt one business process,text,2,Block 4: Adapting Other Business Processes,"Move one manual process to a simple digital tool and note the time it saves.",,
+Module 5: What's next,text,1,Block 5: What's Next,"You've built a presence, started selling, and digitalized a process. Now plan to keep going.",,
+Task 5: Action Plan,text,2,Block 5: What's Next,"Write three things you'll do in the next 30 days, each with a date.",,
+Course Evaluation,quiz,1,Certificate,,,"{""questions"":[{""id"":""q1"",""type"":""rating-matrix"",""required"":true,""prompt"":""How useful were the following parts of the training? 1 = not useful, 5 = very useful."",""scaleHint"":""Rate each part 1-5"",""rows"":[{""id"":""r1"",""label"":""How useful were the training modules?""},{""id"":""r2"",""label"":""How useful was the support from your trainer?""},{""id"":""r3"",""label"":""How useful was the training and coaching overall?""}]},{""id"":""q2"",""type"":""single-scale"",""required"":true,""max"":5,""prompt"":""Will you use what you learned? 1 = very unlikely, 5 = very likely."",""rowLabel"":""How likely are you to use the knowledge and skills acquired?""},{""id"":""q3"",""type"":""free-text"",""required"":true,""prompt"":""What do you suggest we do to further improve the programme?""}]}"
