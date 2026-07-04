@@ -17,7 +17,7 @@ export function CatalogCard({ course, enrolled = false }: CatalogCardProps) {
 
   async function handleEnroll() {
     if (!learner) { navigate("/login"); return; }
-    await api.post("/enrollments", { courseId: course.id, learnerId: learner.id });
+    await api.post("/enrollments", { courseId: course.id, learnerId: learner.id, learnerName: learner.fullName });
     navigate(`/learn/${course.id}`);
   }
 

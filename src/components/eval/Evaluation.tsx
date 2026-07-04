@@ -7,6 +7,7 @@ import { FreeText } from "./FreeText";
 import { Button } from "../ui/Button";
 import { api } from "../../lib/api";
 import { useProgress } from "../../context/ProgressContext";
+import { useAuth } from "../../context/AuthContext";
 import type { Course, MatrixValue } from "../../data/schema";
 
 interface EvaluationProps {
@@ -15,6 +16,7 @@ interface EvaluationProps {
 
 export function Evaluation({ course }: EvaluationProps) {
   const { markEvaluationSubmitted } = useProgress();
+  const { learner } = useAuth();
   const navigate = useNavigate();
   const { courseId } = useParams<{ courseId: string }>();
   const [answers, setAnswers] = useState<Record<string, unknown>>({});
@@ -31,7 +33,7 @@ export function Evaluation({ course }: EvaluationProps) {
   async function handleSubmit() {
     setSubmitting(true);
     try {
-      await api.post("/evaluations", { courseId, answers });
+      await api.post("/evaluations", { courseId, answers, learnerId: learner?.id });
       markEvaluationSubmitted(courseId!);
       navigate(`/learn/${courseId}/certificate`);
     } finally {

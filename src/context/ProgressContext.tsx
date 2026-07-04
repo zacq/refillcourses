@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { api } from "../lib/api";
+import { useAuth } from "./AuthContext";
 import type { Course } from "../data/schema";
 import { isCourseComplete, percentComplete, firstIncompleteLessonId } from "../lib/progress";
 
@@ -35,6 +36,7 @@ function saveSet(key: string, set: Set<string>) {
 }
 
 export function ProgressProvider({ children }: { children: React.ReactNode }) {
+  const { learner } = useAuth();
   const [done, setDone] = useState<Set<string>>(() => loadSet(DONE_KEY));
   const [evaluationSubmitted, setEvalSubmitted] = useState<Set<string>>(() => loadSet(EVAL_KEY));
   const [currentLessonId, setCurrentLessonId] = useState<string | null>(null);
@@ -45,7 +47,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const markComplete = useCallback((lessonId: string) => {
     setDone(prev => {
       const next = new Set(prev).add(lessonId);
-      api.post("/progress", { lessonId, status: "done" }).catch(() => {
+      api.post("/progress", { lessonId, status: "done", learnerId: learner?.id }).catch(() => {
         setDone(current => {
           const rolled = new Set(current);
           rolled.delete(lessonId);
@@ -54,7 +56,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       });
       return next;
     });
-  }, []);
+  }, [learner?.id]);
 
   const markEvaluationSubmitted = useCallback((courseId: string) => {
     setEvalSubmitted(prev => new Set(prev).add(courseId));
