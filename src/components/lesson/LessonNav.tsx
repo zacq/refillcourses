@@ -13,12 +13,12 @@ export function LessonNav({ lesson }: LessonNavProps) {
   const done = isComplete(lesson.id);
 
   return (
-    <div className="mt-10 flex items-center justify-between border-t border-white/[0.08] pt-6">
+    <div className="mt-10 flex items-center justify-between border-t border-cream/10 pt-6">
       <button
         onClick={() => lesson.prevId && navigate(`/learn/${lesson.courseId}/${lesson.prevId}`)}
         disabled={!lesson.prevId}
-        className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-white/60
-                   hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-dim
+                   hover:text-cream hover:bg-cream/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
       >
         <ChevronLeft size={16} /> Previous
       </button>
@@ -38,8 +38,8 @@ export function LessonNav({ lesson }: LessonNavProps) {
       <button
         onClick={() => lesson.nextId && navigate(`/learn/${lesson.courseId}/${lesson.nextId}`)}
         disabled={!lesson.nextId}
-        className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-white/60
-                   hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-dim
+                   hover:text-cream hover:bg-cream/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
       >
         Next <ChevronRight size={16} />
       </button>

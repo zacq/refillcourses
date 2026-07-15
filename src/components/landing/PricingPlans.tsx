@@ -67,8 +67,8 @@ export function PricingPlans() {
               <div className="text-[.72rem] text-dim mb-6">{plan.per}</div>
               <ul className="text-sm flex-1">
                 {plan.items.map(item => (
-                  <li key={item} className="py-2 flex gap-2.5 text-[#C9C6E2]">
-                    <span className="font-mono text-brand-secondary">✓</span>
+                  <li key={item} className="py-2 flex gap-2.5 text-cream/80">
+                    <span className="font-mono text-brand-accent">✓</span>
                     {item}
                   </li>
                 ))}

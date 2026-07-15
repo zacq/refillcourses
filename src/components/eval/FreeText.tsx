@@ -11,9 +11,9 @@ export function FreeText({ value = "", onChange, placeholder = "Type your answer
       onChange={e => onChange(e.target.value)}
       placeholder={placeholder}
       rows={4}
-      className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm
-                 text-white/85 placeholder:text-white/25 resize-none
-                 focus:outline-none focus:border-brand-primary/50 focus:bg-white/[0.06] transition-all"
+      className="w-full rounded-xl border border-surface-border bg-cream/[0.03] px-4 py-3 text-sm
+                 text-cream/85 placeholder:text-dim/60 resize-none
+                 focus:outline-none focus:border-brand-primary/50 focus:bg-cream/[0.05] transition-all"
     />
   );
 }

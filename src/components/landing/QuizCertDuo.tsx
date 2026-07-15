@@ -54,7 +54,7 @@ export function QuizCertDuo() {
         <Reveal delay={120}>
           <div className="glass rounded-[20px] p-8 h-full flex flex-col">
             <div className="flex-1 rounded-2xl p-8 text-center relative overflow-hidden bg-gradient-to-br from-brand-primary/14 via-brand-accent/8 to-brand-secondary/10 border border-brand-primary/35">
-              <div className="absolute inset-2.5 border border-dashed border-white/[0.14] rounded-xl pointer-events-none" />
+              <div className="absolute inset-2.5 border border-dashed border-cream/15 rounded-xl pointer-events-none" />
               <div className="font-display font-extrabold text-[.8rem] tracking-[.3em] text-brand-secondary uppercase">Seed of Power</div>
               <h4 className="font-display text-2xl mt-3.5 mb-1">Certificate of Completion</h4>
               <p className="text-[.74rem] text-dim">Micro & Small Business Growth Code</p>
@@ -64,7 +64,7 @@ export function QuizCertDuo() {
               <p className="text-[.74rem] text-dim">
                 Business Design Programme · 8 modules + capstone<br />Completed 12 October 2026
               </p>
-              <div className="font-mono text-[.62rem] text-dim mt-[18px] pt-3.5 border-t border-white/10">
+              <div className="font-mono text-[.62rem] text-dim mt-[18px] pt-3.5 border-t border-cream/10">
                 Verify: <b className="text-brand-secondary font-normal">refillcourses.com/verify/SP-2026-0417</b><br />
                 Signed · Gachoka Kang'ata · Powering House
               </div>

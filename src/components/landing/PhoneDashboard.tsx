@@ -24,7 +24,7 @@ export function PhoneDashboard() {
   return (
     <section className="max-w-6xl mx-auto px-4 py-20 grid grid-cols-1 md:grid-cols-[.9fr_1.1fr] gap-14 items-center" id="dashboard">
       <Reveal>
-        <div className="w-80 mx-auto rounded-[42px] p-3.5 bg-gradient-to-br from-white/[0.12] to-white/[0.03] border border-white/[0.09] shadow-[0_40px_80px_rgba(0,0,0,.5)]">
+        <div className="w-80 mx-auto rounded-[42px] p-3.5 bg-gradient-to-br from-[#3A332E] to-[#211B17] shadow-[0_30px_60px_rgba(44,37,33,.25)]">
           <div className="rounded-[32px] bg-surface px-5 py-6 min-h-[560px]">
             <div className="font-display font-bold text-[1.15rem]">
               Habari, Damaris 👋
@@ -37,7 +37,7 @@ export function PhoneDashboard() {
               {[
                 { n: "🔥 21", l: "Streak", c: "text-brand-accent" },
                 { n: "38", l: "Days left", c: "text-brand-secondary" },
-                { n: "6/9", l: "Modules", c: "text-[#B9A2FA]" },
+                { n: "6/9", l: "Modules", c: "text-brand-primary" },
               ].map(pill => (
                 <div key={pill.l} className="flex-1 glass rounded-2xl p-3 text-center">
                   <div className={`font-mono font-bold text-[1.05rem] ${pill.c}`}>{pill.n}</div>
@@ -56,7 +56,7 @@ export function PhoneDashboard() {
             </div>
 
             {MODULES.map(m => (
-              <div key={m.title} className="flex items-center gap-3 py-3.5 border-t border-white/[0.06]">
+              <div key={m.title} className="flex items-center gap-3 py-3.5 border-t border-surface-border">
                 <div className={`w-[30px] h-[30px] rounded-[10px] flex items-center justify-center font-mono text-[.7rem] shrink-0 ${dotStyle[m.state]}`}>
                   {m.state === "done" ? "✓" : m.state === "now" ? "▶" : "🔒"}
                 </div>
@@ -64,7 +64,7 @@ export function PhoneDashboard() {
                   <b className={`text-[.8rem] block font-semibold ${m.state === "lock" ? "text-dim" : ""}`}>{m.title}</b>
                   <span className="text-[.64rem] text-dim">{m.detail}</span>
                   {m.progress !== undefined && (
-                    <div className="h-1 rounded-full bg-white/[0.08] mt-1.5 overflow-hidden">
+                    <div className="h-1 rounded-full bg-cream/10 mt-1.5 overflow-hidden">
                       <div className="h-full rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary" style={{ width: `${m.progress}%` }} />
                     </div>
                   )}
@@ -81,7 +81,7 @@ export function PhoneDashboard() {
           Phone-first. Data-light.<br />Applied daily.
         </h2>
         {FEATURES.map((f, i) => (
-          <div key={f.title} className={`flex gap-[18px] py-5 ${i > 0 ? "border-t border-white/[0.09]" : ""}`}>
+          <div key={f.title} className={`flex gap-[18px] py-5 ${i > 0 ? "border-t border-cream/10" : ""}`}>
             <div className="w-11 h-11 rounded-2xl shrink-0 glass flex items-center justify-center text-lg">{f.icon}</div>
             <div>
               <b className="font-display text-base block mb-1">{f.title}</b>

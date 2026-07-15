@@ -27,10 +27,10 @@ export function CourseCard({ course }: CourseCardProps) {
         <Badge>{course.category}</Badge>
         <ProgressRing percent={pct} />
       </div>
-      <h3 className="font-display text-xl text-white mt-4 group-hover:text-brand-primary transition-colors line-clamp-2">
+      <h3 className="font-display text-xl text-cream mt-4 group-hover:text-brand-primary transition-colors line-clamp-2">
         {course.title}
       </h3>
-      <p className="text-white/55 text-sm mt-1 line-clamp-2 flex-1">{course.summary}</p>
+      <p className="text-dim text-sm mt-1 line-clamp-2 flex-1">{course.summary}</p>
       <div className="mt-5 flex items-center gap-2 text-sm text-brand-secondary">
         {pct === 100 ? "Review course" : "Continue"}
         <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />

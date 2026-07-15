@@ -27,7 +27,7 @@ export function Evaluation({ course }: EvaluationProps) {
     .find(l => l.type === "quiz")?.survey;
 
   if (!survey) {
-    return <p className="text-white/40">No evaluation configured for this course.</p>;
+    return <p className="text-dim">No evaluation configured for this course.</p>;
   }
 
   async function handleSubmit() {
@@ -47,8 +47,8 @@ export function Evaluation({ course }: EvaluationProps) {
 
   return (
     <div>
-      <h2 className="font-display text-2xl text-white mb-1">Course Evaluation</h2>
-      <p className="text-white/40 text-sm mb-8 flex items-center gap-2">
+      <h2 className="font-display text-2xl text-cream mb-1">Course Evaluation</h2>
+      <p className="text-dim text-sm mb-8 flex items-center gap-2">
         <Printer size={14} /> Respondent: <em>Anonymous</em>
       </p>
 
@@ -59,7 +59,7 @@ export function Evaluation({ course }: EvaluationProps) {
               {i + 1}{q.required && <sup className="text-red-400 text-[10px]">*</sup>}
             </span>
             <div className="flex-1 rounded-xl bg-brand-secondary/[0.06] border border-brand-secondary/15 px-4 py-3">
-              <p className="text-white/90 text-sm">{q.prompt}</p>
+              <p className="text-cream/90 text-sm">{q.prompt}</p>
             </div>
           </div>
 

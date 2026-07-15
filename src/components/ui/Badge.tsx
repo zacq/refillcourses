@@ -5,7 +5,7 @@ interface BadgeProps {
 }
 
 const colors = {
-  violet:  "bg-brand-primary/14 text-[#B9A2FA] border-brand-primary/35",
+  violet:  "bg-brand-primary/14 text-brand-primary border-brand-primary/35",
   cyan:    "bg-brand-secondary/12 text-brand-secondary border-brand-secondary/30",
   pink:    "bg-brand-accent/12 text-brand-accent border-brand-accent/30",
   emerald: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",

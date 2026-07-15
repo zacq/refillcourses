@@ -20,11 +20,11 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-surface p-6 shadow-2xl">
+      <div className="relative w-full max-w-md rounded-2xl border border-surface-border bg-surface p-6 shadow-2xl">
         {title && (
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-display text-lg text-white">{title}</h3>
-            <button onClick={onClose} className="text-white/40 hover:text-white transition-colors">
+            <h3 className="font-display text-lg text-cream">{title}</h3>
+            <button onClick={onClose} className="text-dim hover:text-cream transition-colors">
               <X size={18} />
             </button>
           </div>

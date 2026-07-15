@@ -24,8 +24,8 @@ export function CatalogCard({ course, enrolled = false }: CatalogCardProps) {
   return (
     <GlassCard accent="plain" className="flex flex-col">
       <Badge color="cyan" className="self-start">{course.category}</Badge>
-      <h3 className="font-display text-xl text-white mt-4 line-clamp-2">{course.title}</h3>
-      <p className="text-white/55 text-sm mt-1 line-clamp-3 flex-1">{course.summary}</p>
+      <h3 className="font-display text-xl text-cream mt-4 line-clamp-2">{course.title}</h3>
+      <p className="text-dim text-sm mt-1 line-clamp-3 flex-1">{course.summary}</p>
       <div className="mt-5">
         {enrolled ? (
           <Button variant="ghost" onClick={() => navigate(`/learn/${course.id}`)}>

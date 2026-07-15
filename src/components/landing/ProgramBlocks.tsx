@@ -56,7 +56,7 @@ export function ProgramBlocks() {
         {BLOCKS.map((block, i) => (
           <Reveal key={block.count} delay={i * 100}>
             <div className="glass rounded-[20px] p-8 relative overflow-hidden h-full hover:border-brand-primary/45 transition-colors duration-300">
-              <span className="absolute top-5 right-6 font-mono text-4xl font-bold text-white/[0.07]">
+              <span className="absolute top-5 right-6 font-mono text-4xl font-bold text-cream/[0.07]">
                 {block.count}
               </span>
               <Badge color={block.color} className="mb-5">{block.tag}</Badge>
@@ -64,7 +64,7 @@ export function ProgramBlocks() {
               <p className="text-dim text-sm mb-5">{block.description}</p>
               <ul className="text-sm">
                 {block.items.map(item => (
-                  <li key={item} className="py-2.5 border-t border-white/[0.06] flex gap-2.5 text-[#C9C6E2]">
+                  <li key={item} className="py-2.5 border-t border-surface-border flex gap-2.5 text-cream/80">
                     <span className="font-mono text-brand-primary">→</span>
                     {item}
                   </li>

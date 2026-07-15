@@ -13,7 +13,7 @@ export function SingleChoice({ q, value, onChange }: SingleChoiceProps) {
   return (
     <div className="space-y-2">
       {q.labels && (
-        <div className="flex justify-between text-xs text-white/40 mb-1">
+        <div className="flex justify-between text-xs text-dim mb-1">
           <span>{q.labels.min}</span>
           <span>{q.labels.max}</span>
         </div>
@@ -27,7 +27,7 @@ export function SingleChoice({ q, value, onChange }: SingleChoiceProps) {
             className={`w-10 h-10 rounded-lg text-sm font-semibold transition-all border ${
               value === n
                 ? "bg-brand-primary border-brand-primary text-white shadow-[0_0_12px] shadow-brand-primary/40"
-                : "border-white/20 text-white/60 hover:border-brand-primary/50 hover:text-white"
+                : "border-surface-border text-dim hover:border-brand-primary/50 hover:text-cream"
             }`}
           >
             {n}

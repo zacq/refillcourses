@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sprout, BookOpen, GraduationCap, LayoutGrid, Award } from "lucide-react";
 import { NotificationBell } from "./nav/NotificationBell";
 import { MessagesButton } from "./nav/MessagesButton";
 import { AvatarMenu } from "./nav/AvatarMenu";
 
 const NAV_LINKS = [
-  { label: "Home",        to: "/" },
-  { label: "Dashboard",   to: "/dashboard" },
-  { label: "Programmes",  to: "/catalog" },
-  { label: "News",        to: "/news" },
-  { label: "About",       to: "/about" },
+  { label: "Awareness",  to: "/",           end: true,  icon: BookOpen },
+  { label: "Programs",   to: "/catalog",    end: false, icon: GraduationCap },
+  { label: "Dashboard",  to: "/dashboard",  end: false, icon: LayoutGrid },
+  { label: "Certificate", to: "/dashboard", end: false, icon: Award },
 ];
 
 export function Navbar() {
@@ -26,30 +25,41 @@ export function Navbar() {
   return (
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
       scrolled
-        ? "bg-brand-bg/80 backdrop-blur-2xl border-b border-white/5 shadow-2xl py-2"
-        : "bg-brand-bg/40 backdrop-blur-md py-3"
+        ? "bg-brand-bg/90 backdrop-blur-2xl border-b border-cream/10 shadow-sm py-2"
+        : "bg-brand-bg/60 backdrop-blur-md py-3"
     }`}>
       <nav className="max-w-7xl mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
-        <NavLink to="/" className="font-display font-bold text-xl text-white tracking-tight">
-          Refill<span className="text-brand-primary">Courses</span>
+        <NavLink to="/" className="flex items-center gap-3">
+          <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center shrink-0">
+            <Sprout size={18} className="text-white" />
+          </span>
+          <span>
+            <span className="font-display font-bold text-lg text-cream tracking-tight block leading-none">
+              Refill<span className="text-brand-primary">Courses</span>
+            </span>
+            <span className="font-mono text-[.6rem] tracking-[.24em] text-dim uppercase block mt-1">
+              Seed of Power
+            </span>
+          </span>
         </NavLink>
 
         {/* Desktop center links */}
-        <ul className="hidden md:flex items-center gap-7 text-sm text-white/70">
-          {NAV_LINKS.map(({ label, to }) => (
+        <ul className="hidden md:flex items-center gap-1.5 text-sm">
+          {NAV_LINKS.map(({ label, to, end, icon: Icon }) => (
             <li key={label}>
               <NavLink
                 to={to}
-                end={to === "/"}
+                end={end}
                 className={({ isActive }) =>
-                  `transition-colors relative pb-0.5 ${
+                  `flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all ${
                     isActive
-                      ? "text-white after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-brand-primary"
-                      : "hover:text-white"
+                      ? "bg-gradient-to-r from-brand-primary to-brand-accent text-white shadow-[0_4px_16px_rgba(204,85,0,.3)]"
+                      : "text-dim hover:text-cream hover:bg-cream/[0.05]"
                   }`
                 }
               >
+                <Icon size={16} />
                 {label}
               </NavLink>
             </li>
@@ -60,12 +70,12 @@ export function Navbar() {
         <div className="flex items-center gap-1">
           <NotificationBell count={2} />
           <MessagesButton />
-          <span className="w-px h-5 bg-white/10 mx-1" />
+          <span className="w-px h-5 bg-cream/10 mx-1" />
           <AvatarMenu />
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden ml-2 p-2 text-white/50 hover:text-white transition-colors"
+            className="md:hidden ml-2 p-2 text-dim hover:text-cream transition-colors"
             onClick={() => setMobileOpen(v => !v)}
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -75,22 +85,23 @@ export function Navbar() {
 
       {/* Mobile panel */}
       {mobileOpen && (
-        <div className="md:hidden bg-brand-bg/95 backdrop-blur-2xl border-t border-white/5 px-4 py-4">
+        <div className="md:hidden bg-brand-bg/95 backdrop-blur-2xl border-t border-cream/10 px-4 py-4">
           <ul className="space-y-1">
-            {NAV_LINKS.map(({ label, to }) => (
+            {NAV_LINKS.map(({ label, to, end, icon: Icon }) => (
               <li key={label}>
                 <NavLink
                   to={to}
-                  end={to === "/"}
+                  end={end}
                   onClick={() => setMobileOpen(false)}
                   className={({ isActive }) =>
-                    `block px-3 py-2.5 rounded-lg text-sm transition-colors ${
+                    `flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors ${
                       isActive
-                        ? "text-white bg-brand-primary/10"
-                        : "text-white/60 hover:text-white hover:bg-white/[0.04]"
+                        ? "text-white bg-gradient-to-r from-brand-primary to-brand-accent"
+                        : "text-cream/60 hover:text-cream hover:bg-cream/[0.04]"
                     }`
                   }
                 >
+                  <Icon size={16} />
                   {label}
                 </NavLink>
               </li>

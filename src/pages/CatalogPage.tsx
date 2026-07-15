@@ -17,8 +17,8 @@ export function CatalogPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="mb-8">
-        <h1 className="font-display text-3xl text-white">All Programmes</h1>
-        <p className="text-white/50 mt-1">Browse and enroll in available courses.</p>
+        <h1 className="font-display text-3xl text-cream">All Programmes</h1>
+        <p className="text-dim mt-1">Browse and enroll in available courses.</p>
       </div>
 
       {loading ? (

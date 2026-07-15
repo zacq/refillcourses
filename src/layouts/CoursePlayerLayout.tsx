@@ -19,7 +19,7 @@ export function CoursePlayerLayout() {
       <div className="pt-16 min-h-screen bg-brand-bg flex">
         {/* Sidebar */}
         <aside
-          className={`shrink-0 border-r border-white/5 bg-surface/60 backdrop-blur-xl
+          className={`shrink-0 border-r border-surface-border bg-surface
                       transition-[width] duration-300 overflow-hidden
                       ${menuOpen ? "w-[300px]" : "w-0"}`}
         >
@@ -31,7 +31,7 @@ export function CoursePlayerLayout() {
           <div className="max-w-3xl mx-auto px-5 md:px-8 py-8">
             <button
               onClick={() => setMenuOpen(v => !v)}
-              className="mb-4 text-white/40 hover:text-white transition-colors"
+              className="mb-4 text-dim hover:text-cream transition-colors"
               aria-label={menuOpen ? "Collapse menu" : "Expand menu"}
             >
               {menuOpen ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}

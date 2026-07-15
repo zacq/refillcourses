@@ -8,7 +8,7 @@ interface GlassCardProps {
 const accents: Record<string, string> = {
   violet: "hover:border-brand-primary/45",
   cyan:   "hover:border-brand-secondary/40",
-  plain:  "hover:border-white/20",
+  plain:  "hover:border-cream/20",
 };
 
 export function GlassCard({ accent = "violet", className = "", children, onClick }: GlassCardProps) {

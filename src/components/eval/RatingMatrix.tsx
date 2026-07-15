@@ -12,10 +12,10 @@ const SCALE = [1, 2, 3, 4, 5];
 
 export function RatingMatrix({ q, value = {}, onChange }: RatingMatrixProps) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-white/[0.08]">
+    <div className="overflow-x-auto rounded-xl border border-surface-border">
       <table className="w-full text-sm">
         <thead>
-          <tr className="bg-white/[0.03] text-white/50">
+          <tr className="bg-cream/[0.03] text-dim">
             <th className="text-left px-3 py-2 font-normal">{q.scaleHint}</th>
             {SCALE.map(n => (
               <th key={n} className="px-3 py-2 font-medium text-center">{n}</th>
@@ -24,8 +24,8 @@ export function RatingMatrix({ q, value = {}, onChange }: RatingMatrixProps) {
         </thead>
         <tbody>
           {q.rows.map(row => (
-            <tr key={row.id} className="border-t border-white/5">
-              <td className="px-3 py-3 text-white/75">{row.label}</td>
+            <tr key={row.id} className="border-t border-surface-border">
+              <td className="px-3 py-3 text-cream/75">{row.label}</td>
               {SCALE.map(n => (
                 <td key={n} className="text-center py-3">
                   <button
@@ -35,7 +35,7 @@ export function RatingMatrix({ q, value = {}, onChange }: RatingMatrixProps) {
                     className={`w-5 h-5 rounded-full border-2 transition-all ${
                       value[row.id] === n
                         ? "border-brand-primary bg-brand-primary shadow-[0_0_10px] shadow-brand-primary/50"
-                        : "border-white/25 hover:border-brand-primary/60"
+                        : "border-dim/40 hover:border-brand-primary/60"
                     }`}
                   />
                 </td>

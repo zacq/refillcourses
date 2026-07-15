@@ -33,7 +33,7 @@ export function LessonRenderer() {
       <p className="text-xs uppercase tracking-wider text-brand-primary/70 mb-1">
         {lesson.blockTitle}
       </p>
-      <h1 className="font-display text-3xl text-white mb-6">{lesson.title}</h1>
+      <h1 className="font-display text-3xl text-cream mb-6">{lesson.title}</h1>
 
       {lesson.type === "video"    && <VideoLesson    lesson={lesson} />}
       {lesson.type === "text"     && <TextLesson     lesson={lesson} />}

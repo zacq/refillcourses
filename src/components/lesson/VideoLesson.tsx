@@ -28,7 +28,7 @@ export function VideoLesson({ lesson }: VideoLessonProps) {
   if (isYouTube(url) || isVimeo(url)) {
     const embed = isYouTube(url) ? youtubeEmbedUrl(url) : vimeoEmbedUrl(url);
     return (
-      <div className="aspect-video rounded-xl overflow-hidden border border-white/10 mb-6">
+      <div className="aspect-video rounded-xl overflow-hidden border border-surface-border mb-6">
         <iframe
           src={embed}
           className="w-full h-full"
@@ -44,7 +44,7 @@ export function VideoLesson({ lesson }: VideoLessonProps) {
     <video
       src={url}
       controls
-      className="w-full rounded-xl border border-white/10 mb-6"
+      className="w-full rounded-xl border border-surface-border mb-6"
     />
   );
 }

@@ -10,12 +10,12 @@ export function RingCard() {
         <svg width="220" height="220" viewBox="0 0 220 220" className="-rotate-90">
           <defs>
             <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#33D6EE" />
-              <stop offset="55%" stopColor="#8B5CF6" />
-              <stop offset="100%" stopColor="#EC4899" />
+              <stop offset="0%" stopColor="#CC5500" />
+              <stop offset="55%" stopColor="#E8A317" />
+              <stop offset="100%" stopColor="#22774F" />
             </linearGradient>
           </defs>
-          <circle cx="110" cy="110" r={r} fill="none" stroke="rgba(255,255,255,.07)" strokeWidth="10" />
+          <circle cx="110" cy="110" r={r} fill="none" stroke="rgba(44,37,33,.08)" strokeWidth="10" />
           <circle
             cx="110" cy="110" r={r} fill="none" stroke="url(#ringGrad)" strokeWidth="10"
             strokeLinecap="round" strokeDasharray={circumference} strokeDashoffset={offset}

@@ -23,10 +23,10 @@ export function DashboardPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="mb-8">
-        <h1 className="font-display text-3xl text-white">
+        <h1 className="font-display text-3xl text-cream">
           Welcome back{learner ? `, ${learner.fullName.split(" ")[0]}` : ""}
         </h1>
-        <p className="text-white/50 mt-1">Pick up where you left off.</p>
+        <p className="text-dim mt-1">Pick up where you left off.</p>
       </div>
 
       {loading ? (
@@ -37,13 +37,13 @@ export function DashboardPage() {
           </div>
         </div>
       ) : courses.length === 0 ? (
-        <div className="text-center py-20 text-white/40">
+        <div className="text-center py-20 text-dim">
           <p>You haven't enrolled in any courses yet.</p>
         </div>
       ) : (
         <>
           {hero && <div className="mb-8"><ContinueCard course={hero} /></div>}
-          <h2 className="font-display text-xl text-white mb-4">My Courses</h2>
+          <h2 className="font-display text-xl text-cream mb-4">My Courses</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {courses.map(c => <CourseCard key={c.id} course={c} />)}
           </div>

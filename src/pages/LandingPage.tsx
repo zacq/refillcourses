@@ -69,7 +69,7 @@ export function LandingPage() {
       <PricingPlans />
 
       {/* Footer quote */}
-      <footer className="border-t border-white/[0.09] py-16 mt-8">
+      <footer className="border-t border-cream/10 py-16 mt-8">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-12 items-center">
           <Reveal>
             <p className="font-display text-2xl md:text-3xl font-semibold leading-snug">

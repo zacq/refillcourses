@@ -20,7 +20,7 @@ export function ExpectedShift() {
   }
 
   return (
-    <section className="bg-white/[0.015] border-y border-white/[0.09]" id="shift">
+    <section className="bg-cream/[0.02] border-y border-cream/10" id="shift">
       <div className="max-w-6xl mx-auto px-4 py-20">
         <Reveal className="max-w-xl mb-14">
           <div className="eyebrow">The Expected Shift</div>

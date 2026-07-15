@@ -10,7 +10,7 @@ const SHIFTS = [
 export function ShiftTicker() {
   const items = [...SHIFTS, ...SHIFTS];
   return (
-    <div className="border-y border-white/[0.09] overflow-hidden py-[18px] bg-white/[0.02]">
+    <div className="border-y border-cream/10 overflow-hidden py-[18px] bg-cream/[0.02]">
       <div className="flex gap-14 whitespace-nowrap animate-marquee">
         {items.map(([before, after], i) => (
           <span key={i} className="font-mono text-[.8rem] text-dim shrink-0">
