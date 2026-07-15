@@ -23,9 +23,9 @@ export function AvatarMenu() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(v => !v)}
-        className="w-9 h-9 rounded-full bg-gradient-to-br from-violet-500 to-cyan-500
+        className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-primary to-brand-secondary
                    flex items-center justify-center text-white text-sm font-bold
-                   ring-2 ring-white/10 hover:ring-violet-400/50 transition-all"
+                   ring-2 ring-white/10 hover:ring-brand-primary/50 transition-all"
       >
         {initials}
       </button>

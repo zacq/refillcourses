@@ -30,16 +30,16 @@ export function Certificate({ learnerName, courseTitle, completedAt }: Certifica
       {/* Certificate panel */}
       <div
         ref={ref}
-        className="w-full max-w-2xl rounded-2xl p-px bg-gradient-to-br from-violet-500 via-cyan-400 to-pink-400"
+        className="w-full max-w-2xl rounded-2xl p-px bg-gradient-to-br from-brand-primary via-brand-secondary to-brand-accent"
       >
         <div className="rounded-2xl bg-[#07071a] px-10 py-12 text-center">
-          <Award className="mx-auto mb-4 text-violet-300" size={48} />
-          <p className="text-xs uppercase tracking-widest text-violet-300/60 mb-2">Certificate of Completion</p>
+          <Award className="mx-auto mb-4 text-brand-primary" size={48} />
+          <p className="text-xs uppercase tracking-widest text-brand-primary/70 mb-2">Certificate of Completion</p>
           <p className="text-white/50 text-sm mb-4">This certifies that</p>
           <h2 className="font-display text-4xl text-white mb-4">{learnerName}</h2>
           <p className="text-white/50 text-sm mb-2">has successfully completed</p>
-          <h3 className="font-display text-2xl text-cyan-300 mb-6">{courseTitle}</h3>
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent mx-auto mb-4" />
+          <h3 className="font-display text-2xl text-brand-secondary mb-6">{courseTitle}</h3>
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-brand-primary to-transparent mx-auto mb-4" />
           <p className="text-white/40 text-sm">Issued on {date}</p>
           <p className="text-white/30 text-xs mt-1">RefillCourses.com</p>
         </div>

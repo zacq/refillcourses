@@ -15,7 +15,7 @@ export function MenuItem({ lesson, state }: MenuItemProps) {
         className={({ isActive }) =>
           `flex items-center gap-2.5 px-4 py-2 text-sm transition-colors border-l-2 ${
             isActive
-              ? "text-white bg-violet-500/10 border-violet-400"
+              ? "text-white bg-brand-primary/10 border-brand-primary"
               : "text-white/60 hover:text-white/90 border-transparent"
           }`
         }

@@ -30,7 +30,7 @@ export function LessonRenderer() {
 
   return (
     <article>
-      <p className="text-xs uppercase tracking-wider text-violet-300/70 mb-1">
+      <p className="text-xs uppercase tracking-wider text-brand-primary/70 mb-1">
         {lesson.blockTitle}
       </p>
       <h1 className="font-display text-3xl text-white mb-6">{lesson.title}</h1>

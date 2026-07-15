@@ -1,32 +1,95 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/Button";
+import { Reveal } from "../components/ui/Reveal";
+import { RingCard } from "../components/landing/RingCard";
+import { ShiftTicker } from "../components/landing/ShiftTicker";
+import { ProgramBlocks } from "../components/landing/ProgramBlocks";
+import { PhoneDashboard } from "../components/landing/PhoneDashboard";
+import { ExpectedShift } from "../components/landing/ExpectedShift";
+import { QuizCertDuo } from "../components/landing/QuizCertDuo";
+import { PricingPlans } from "../components/landing/PricingPlans";
+
+const HERO_META = [
+  { n: "21", l: "Modules" },
+  { n: "16 wks", l: "Access window" },
+  { n: "1 hr", l: "Per day" },
+  { n: "Kes 0", l: "To start" },
+];
 
 export function LandingPage() {
   const navigate = useNavigate();
-  return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Decorative orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-violet-500/10 blur-3xl animate-pulse-soft pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-cyan-500/10 blur-3xl animate-pulse-soft pointer-events-none" style={{ animationDelay: "3s" }} />
 
-      <div className="relative text-center px-4 max-w-3xl mx-auto">
-        <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-violet-500/15 text-violet-300 border border-violet-500/30 mb-6">
-          Self-Paced Learning Platform
-        </span>
-        <h1 className="font-display text-5xl md:text-6xl text-white leading-tight mb-6">
-          Learn at your<br />
-          <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
-            own pace
-          </span>
-        </h1>
-        <p className="text-white/60 text-lg mb-8 max-w-lg mx-auto">
-          Structured programmes, bite-sized lessons, and progress that sticks — all in one place.
-        </p>
-        <div className="flex gap-3 justify-center flex-wrap">
-          <Button onClick={() => navigate("/catalog")}>Browse Programmes</Button>
-          <Button variant="ghost" onClick={() => navigate("/login")}>Sign in</Button>
+  return (
+    <div className="relative overflow-hidden">
+      {/* Hero */}
+      <section className="max-w-6xl mx-auto px-4 pt-28 pb-16 grid grid-cols-1 md:grid-cols-[1.15fr_.85fr] gap-12 items-center">
+        <Reveal>
+          <div className="eyebrow">Micro &amp; Small Business Growth Code</div>
+          <h1 className="font-display text-4xl md:text-5xl lg:text-[4.2rem] leading-[1.08] mt-5 mb-5">
+            Every business<br />
+            is{" "}
+            <span className="bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-clip-text text-transparent">
+              scalable.
+            </span>
+            <br />Even yours.
+          </h1>
+          <p className="text-dim text-[1.08rem] max-w-[44ch]">
+            A self-paced growth school for Kenyan micro-enterprises. Redesign your
+            business in 16 weeks — on your phone, one hour a day. Learn. Discover. Grow.
+          </p>
+          <div className="flex gap-3.5 mt-8 flex-wrap">
+            <Button onClick={() => navigate("/catalog")}>Begin free — Level 1: Awareness</Button>
+            <Button
+              variant="ghost"
+              onClick={() => document.getElementById("program")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              See the 21 modules ↓
+            </Button>
+          </div>
+          <div className="flex gap-6 mt-9 flex-wrap">
+            {HERO_META.map(m => (
+              <div key={m.l}>
+                <strong className="font-mono text-lg block">{m.n}</strong>
+                <span className="text-[.74rem] text-dim uppercase tracking-[.12em]">{m.l}</span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <RingCard />
+        </Reveal>
+      </section>
+
+      <ShiftTicker />
+      <ProgramBlocks />
+      <PhoneDashboard />
+      <ExpectedShift />
+      <QuizCertDuo />
+      <PricingPlans />
+
+      {/* Footer quote */}
+      <footer className="border-t border-white/[0.09] py-16 mt-8">
+        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-12 items-center">
+          <Reveal>
+            <p className="font-display text-2xl md:text-3xl font-semibold leading-snug">
+              "You don't take time growing the business. You take time{" "}
+              <em className="not-italic bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-clip-text text-transparent">
+                becoming the right person
+              </em>{" "}
+              to grow the business."
+            </p>
+            <span className="block text-[.82rem] text-dim mt-3.5">
+              — Gachoka Kang'ata (GK) · Founder, Powering House · Main Coach
+            </span>
+          </Reveal>
+          <Reveal delay={80} className="md:text-right text-[.78rem] text-dim">
+            <div className="font-display font-extrabold text-base text-cream mb-2">Seed of Power</div>
+            Learn. Discover. Grow your business.<br />
+            No more excuses — every business is scalable.
+          </Reveal>
         </div>
-      </div>
+      </footer>
     </div>
   );
 }

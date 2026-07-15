@@ -34,8 +34,8 @@ export function RatingMatrix({ q, value = {}, onChange }: RatingMatrixProps) {
                     aria-label={`${row.label}: ${n}`}
                     className={`w-5 h-5 rounded-full border-2 transition-all ${
                       value[row.id] === n
-                        ? "border-violet-400 bg-violet-500 shadow-[0_0_10px] shadow-violet-500/50"
-                        : "border-white/25 hover:border-violet-400/60"
+                        ? "border-brand-primary bg-brand-primary shadow-[0_0_10px] shadow-brand-primary/50"
+                        : "border-white/25 hover:border-brand-primary/60"
                     }`}
                   />
                 </td>

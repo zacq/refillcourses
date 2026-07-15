@@ -86,7 +86,7 @@ export function Navbar() {
                   className={({ isActive }) =>
                     `block px-3 py-2.5 rounded-lg text-sm transition-colors ${
                       isActive
-                        ? "text-white bg-violet-500/10"
+                        ? "text-white bg-brand-primary/10"
                         : "text-white/60 hover:text-white hover:bg-white/[0.04]"
                     }`
                   }

@@ -13,7 +13,7 @@ export function DownloadLesson({ lesson }: DownloadLessonProps) {
     <div className="space-y-3">
       {files.map(file => (
         <GlassCard key={file.id} accent="cyan" className="flex items-center gap-4 p-4">
-          <FileText className="text-cyan-300 shrink-0" size={24} />
+          <FileText className="text-brand-secondary shrink-0" size={24} />
           <div className="flex-1 min-w-0">
             <p className="text-white font-medium truncate">{file.name}</p>
             <p className="text-white/50 text-xs mt-0.5">

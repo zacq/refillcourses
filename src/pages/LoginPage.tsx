@@ -50,7 +50,7 @@ export function LoginPage() {
                   required
                   className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5
                              text-sm text-white placeholder:text-white/25
-                             focus:outline-none focus:border-violet-500/50 transition-all"
+                             focus:outline-none focus:border-brand-primary/50 transition-all"
                 />
               </div>
               <Button type="submit" disabled={loading} className="w-full">

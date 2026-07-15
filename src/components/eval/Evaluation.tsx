@@ -55,10 +55,10 @@ export function Evaluation({ course }: EvaluationProps) {
       {survey.questions.map((q, i) => (
         <section key={q.id} className="mb-8">
           <div className="flex gap-3">
-            <span className="flex items-center justify-center w-8 h-8 rounded-lg shrink-0 bg-pink-400/15 text-pink-300 font-bold text-sm">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg shrink-0 bg-brand-accent/15 text-brand-accent font-bold text-sm">
               {i + 1}{q.required && <sup className="text-red-400 text-[10px]">*</sup>}
             </span>
-            <div className="flex-1 rounded-xl bg-cyan-500/[0.06] border border-cyan-500/15 px-4 py-3">
+            <div className="flex-1 rounded-xl bg-brand-secondary/[0.06] border border-brand-secondary/15 px-4 py-3">
               <p className="text-white/90 text-sm">{q.prompt}</p>
             </div>
           </div>

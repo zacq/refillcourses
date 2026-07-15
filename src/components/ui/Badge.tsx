@@ -5,15 +5,15 @@ interface BadgeProps {
 }
 
 const colors = {
-  violet:  "bg-violet-500/15 text-violet-300 border-violet-500/30",
-  cyan:    "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
-  pink:    "bg-pink-400/15 text-pink-300 border-pink-400/30",
+  violet:  "bg-brand-primary/14 text-[#B9A2FA] border-brand-primary/35",
+  cyan:    "bg-brand-secondary/12 text-brand-secondary border-brand-secondary/30",
+  pink:    "bg-brand-accent/12 text-brand-accent border-brand-accent/30",
   emerald: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
 };
 
 export function Badge({ children, color = "violet", className = "" }: BadgeProps) {
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${colors[color]} ${className}`}>
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full font-mono text-[.66rem] tracking-[.12em] uppercase border ${colors[color]} ${className}`}>
       {children}
     </span>
   );

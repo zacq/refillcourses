@@ -28,7 +28,7 @@ export function LessonNav({ lesson }: LessonNavProps) {
         className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
           done
             ? "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 cursor-default"
-            : "bg-gradient-to-r from-violet-600 to-cyan-500 text-white hover:opacity-90"
+            : "bg-gradient-to-r from-brand-primary to-brand-secondary text-white hover:opacity-90"
         }`}
       >
         {done && <CheckCircle size={15} />}

@@ -26,8 +26,8 @@ export function SingleChoice({ q, value, onChange }: SingleChoiceProps) {
             onClick={() => onChange(n)}
             className={`w-10 h-10 rounded-lg text-sm font-semibold transition-all border ${
               value === n
-                ? "bg-violet-500 border-violet-400 text-white shadow-[0_0_12px] shadow-violet-500/40"
-                : "border-white/20 text-white/60 hover:border-violet-400/50 hover:text-white"
+                ? "bg-brand-primary border-brand-primary text-white shadow-[0_0_12px] shadow-brand-primary/40"
+                : "border-white/20 text-white/60 hover:border-brand-primary/50 hover:text-white"
             }`}
           >
             {n}
